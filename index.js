@@ -44,9 +44,7 @@ get.onclick = () => {
                     nick = "[HELPER]"
                 } else if (points >= 7 && points <= 10) {
                     nick = "[MODERATOR]"
-                } else if (points >= 11 && points <= 15) {
-                    nick = "[JR ADMIN]"
-                } else if (points >= 16) {
+                } else if (points >= 11) {
                     nick = "[ADMIN]"
                 }
 
