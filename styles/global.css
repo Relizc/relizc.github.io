@@ -1,0 +1,104 @@
+body { 
+    background-color: #eeeeee;
+    margin: 0;
+    font-family: varela;
+}
+
+@font-face {
+    font-family: inter;
+    src: url("/assets/Inter-Regular.ttf");
+}
+
+@font-face {
+    font-family: varela;
+    src: url("/assets/VarelaRound-Regular.ttf");
+}
+
+@keyframes smooth-appear {
+    to {
+        top: 10%;
+        opacity: 1;
+    }
+}
+
+@keyframes smooth-disappear {
+    to {
+        top: -10%;
+        opacity: 1;
+    }
+}
+
+@keyframes quick-disappear {
+    to {
+        top: -10%;
+        opacity: 1;
+    }
+}
+
+.whoops {
+    width: 30%;
+    height: 5%;
+    background-color: #ff4141;
+    box-shadow: 3px 3px 20px black;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    position: fixed;
+    display: flex;
+    opacity: 1;
+    
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+}
+
+.whoops-open {
+    top: -10%;
+    animation: smooth-appear 1s ease forwards;
+}
+
+.whoops-close {
+    top: 10%;
+    animation: smooth-disappear 1.1s ease;
+}
+
+.whoops-quickclose {
+    top: 10%;
+    animation: quick-disappear 0.3s ease;
+}
+
+.whoops .whoops-icon {
+    font-size: 16px;
+}
+
+.whoops .title {
+    font-weight: bold;
+}
+
+.whoops .msgarea {
+    float: center;
+    text-align: center;
+}
+
+.whoops .msgarea p {
+    margin: auto;
+}
+
+.whoops .msgarea a {
+    color: white;
+    transition: color 0.2s ease-in-out;
+}
+
+.whoops .msgarea a:hover {
+    color: #cccccc;
+    transition: color 0.2s ease-in-out;
+}
+
+.whoops a.closemsg {
+    cursor: pointer;
+}
