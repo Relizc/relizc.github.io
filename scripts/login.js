@@ -32,7 +32,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
 
-window.onload = () => {
+document.addEventListener("load", () => {
     CURRENT_LOCATION = "usrname"
     document.body.style = "background-image: url(\"/assets/wp" + getRandomInt(0, 2) + ".jpg\"); background-size: cover; background-repeat: no-repeat;"
     document.getElementById("logger").onclick = () => {
@@ -58,6 +58,7 @@ window.onload = () => {
                 }
     
                 else if (xml.status == 200){
+                    localStorage.setItem("basic-profile-data", JSON.stringify(d.data))
                     document.getElementById("subtitle").innerHTML = "Welcome back, <strong>" + d.data.given + "</strong>!<br>Enter your password to continue."
                     CURRENT_LOCATION = document.getElementById("username").value
                     document.getElementById("username").value = "";
@@ -89,6 +90,7 @@ window.onload = () => {
                 }
     
                 else if (xml.status == 200){
+                    localStorage.setItem("expire", d.expires)
                     localStorage.setItem("token", d.token)
                     CURRENT_LOCATION = "done"
                     window.location.href = "/"
@@ -111,4 +113,6 @@ window.onload = () => {
     document.getElementById("username").oninput = () => {
         document.getElementById("username").classList.remove("login-input-error")
     }
-}
+
+    console.log(this)
+}, true)

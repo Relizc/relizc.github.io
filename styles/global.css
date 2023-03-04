@@ -2,6 +2,18 @@ body {
     background-color: #eeeeee;
     margin: 0;
     font-family: varela;
+
+    color: #333;
+}
+
+a {
+    color: #333;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: #ccc;
+    transition: color 0.2s ease-in-out;
 }
 
 @font-face {
