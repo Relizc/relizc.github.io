@@ -5,11 +5,6 @@ body {
 }
 
 @font-face {
-    font-family: inter;
-    src: url("/assets/Inter-Regular.ttf");
-}
-
-@font-face {
     font-family: varela;
     src: url("/assets/VarelaRound-Regular.ttf");
 }
@@ -38,7 +33,7 @@ body {
 .whoops {
     width: 30%;
     height: 5%;
-    background-color: #ff4141;
+    background-color: #ff1919;
     box-shadow: 3px 3px 20px black;
     color: white;
     padding: 8px;
