@@ -1,0 +1,89 @@
+body { 
+    background-color: #eeeeee;
+}
+
+.login-box {
+    padding: 16px;
+    margin: 36vh auto;
+    background-color: #eee;
+    border-radius: 8px;
+    border-width: 2px;
+    border-style: solid;
+
+    width: 15%;
+    height: 5%;
+    top: 50%;
+    left: 50%;
+
+    text-align: center;
+    
+}
+
+.login-input {
+    width: 300px;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 8px;
+    border-style: solid;
+    outline: none;
+    font-family: varela;
+
+    height: 16px;
+    width: 256px;
+
+    transition: background-color 0.2s ease-in-out;
+    transition: border-color 0.2s ease;
+}
+
+.login-input-error {
+    color: red;
+    border-color: red;
+    transition: border-color 0.2s ease;
+}
+
+.login-input:disabled {
+    color: #777777;
+    border-color: #777777;
+    background-color: #dddddd;
+    cursor: not-allowed;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.login-button {
+    height: 32px;
+    padding: auto 8px;
+    color: #777777;
+
+    width: 75px;
+    
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #777777;
+    font-family: varela;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.login-button:hover {
+    background-color: #cccccc;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.login-button:disabled {
+    background-color: #eeeeee;
+    cursor: auto;
+    color: #777777;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.login-box p.title {
+    margin: 0;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+img.top-logo {
+    padding: 4px;
+}
