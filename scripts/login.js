@@ -52,7 +52,7 @@ document.addEventListener("load", () => {
     
                 d = JSON.parse(xml.responseText)
     
-                if (xml.status == 404) {
+                if (xml.status != 200) {
                     whoops("Failed to log in!", d.message)
                     document.getElementById("username").classList.add("login-input-error")
                 }
@@ -84,7 +84,7 @@ document.addEventListener("load", () => {
     
                 d = JSON.parse(xml.responseText)
     
-                if (xml.status == 403) {
+                if (xml.status != 200) {
                     whoops("Failed to log in!", d.message)
                     document.getElementById("username").classList.add("login-input-error")
                 }
