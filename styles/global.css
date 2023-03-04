@@ -30,6 +30,73 @@ body {
     }
 }
 
+.topnav {
+    display: flex;
+    background-color: #333;
+    width: 100%;
+    overflow: hidden;
+    height: 64px;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topnav .item {
+    display: flex;
+    flex: 1;
+}
+
+.topnav .item-force {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+}
+
+.topnav .spacer {
+    margin: auto;
+    flex: 5;
+}
+
+.topnav .account {
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-left: auto;
+    order: 2;
+    float: right;
+}
+
+.topnav .links {
+    margin-right: auto;
+    order: 0;
+    float: left;
+    justify-content: flex-start;
+}
+
+.topnav a.logo {
+    order: 1;
+    margin: 0 auto;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 24px;
+    font-size: 17px;
+    transition: all 200ms ease;
+    text-decoration: none;
+}
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.topnav a.active {
+    background-color: #0452aa;
+    color: white;
+}
+
 .whoops {
     width: 30%;
     height: 5%;
