@@ -43,11 +43,12 @@ a:hover {
 }
 
 .topnav {
+    display: flex;
     background-color: #333;
     width: 100%;
     overflow: hidden;
     height: 64px;
-    text-align:center;
+
     justify-content: space-between;
     align-items: center;
 }
@@ -65,8 +66,8 @@ a:hover {
 }
 
 .topnav .spacer {
-    margin: 0;
-    flex: 1;
+    margin: auto;
+    flex: 5;
 }
 
 .topnav .account {
@@ -79,7 +80,7 @@ a:hover {
 }
 
 .topnav .links {
-    margin-right: 0;
+    margin-right: auto;
     order: 0;
     float: left;
     justify-content: flex-start;
@@ -87,7 +88,7 @@ a:hover {
 
 .topnav a.logo {
     order: 1;
-    margin: 0;
+    margin: 0 auto;
 }
 
 .topnav a {
@@ -108,19 +109,6 @@ a:hover {
     color: white;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .whoops {
     width: 30%;
     height: 5%;
@@ -132,6 +120,7 @@ a:hover {
     position: fixed;
     display: flex;
     opacity: 1;
+    
     align-items: center;
     justify-content: space-around;
     gap: 20px;
