@@ -76,6 +76,7 @@ a:hover {
     gap: 16px;
     margin-left: auto;
     order: 2;
+    flex: 0.8;
     float: right;
 }
 
@@ -88,6 +89,7 @@ a:hover {
 
 .topnav a.logo {
     order: 1;
+    flex: 0 !important;
     margin: 0 auto;
 }
 
