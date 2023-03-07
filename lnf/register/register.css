@@ -53,6 +53,7 @@ body {
 .login-button {
     height: 32px;
     padding: auto 8px;
+    margin: 8px;
     color: #777777;
 
     width: 75px;
@@ -62,6 +63,10 @@ body {
     border-color: #777777;
     font-family: varela;
     transition: background-color 0.2s ease-in-out;
+}
+
+.login-button-nosize {
+    width: auto !important;
 }
 
 .login-button:hover {

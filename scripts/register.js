@@ -9,6 +9,14 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
 
+
+
+function buttonClicker(formtype) {
+    
+}
+
+
+
 document.addEventListener("load", () => {
     CURRENT_LOCATION = "username"
     document.body.style = "background-image: url(\"/assets/wp" + getRandomInt(0, 2) + ".jpg\"); background-size: cover; background-repeat: no-repeat;"
@@ -34,28 +42,37 @@ document.addEventListener("load", () => {
                 if (xml.status != 200) {
                     whoops("Failed to register!", d.message)
                     document.getElementById("username").classList.add("login-input-error")
-                    return
                 }
     
                 if (xml.status == 200){
-                    localStorage.setItem("basic-profile-data", JSON.stringify(d.data))
-                    document.getElementById("subtitle").innerHTML = "Welcome back, <strong>" + d.data.given + "</strong>!<br>Enter your password to continue."
-                    CURRENT_LOCATION = document.getElementById("username").value
-                    document.getElementById("username").value = "";
-                    document.getElementById("username").type = "password";
+                    document.getElementById("subtitle").innerHTML = "Real account?<br>Select a verification method to check your account!"
+                    CURRENT_LOCATION = "verify0"
+                    document.getElementById("username").remove()
+                    document.getElementById("log").innerHTML = `<p class="title">Register a Lost 'n Found Account!</p>
+                    <br>
+                    <p id="subtitle">Wait a min... Is your account real?<br>Please pick a verification method to verify your account!</p>
+                    <br>
+                    <br>
+                    <button id="vfteams" class="login-button login-button-nosize">
+                        Teams Message
+                    </button>
+                    <button id="vfemail" class="login-button login-button-nosize">
+                        E-Mail
+                    </button>`
                 }
-    
+
                 document.getElementById("logger").innerHTML = `Continue`
                 document.getElementById("logger").disabled = null;
                 document.getElementById("username").disabled = null;
                 
             }
             
-            xml.open("POST","https://lostnfoundapi.ericpooman.repl.co/api/preview-info");
+            xml.open("POST","https://us0.lnf.api.itsrelizc.net/api/register/password");
 
-            xml.send(JSON.stringify({
-                "username": document.getElementById("username").value
-            }))
+            xml.setRequestHeader("RS-Registering-Username", localStorage.getItem("registery-username"))
+            xml.setRequestHeader("RS-Registering-Password", document.getElementById("username").value)
+
+            xml.send()
         } else if (CURRENT_LOCATION == "username") {
             xml.onreadystatechange = () =>{
                 if (xml.readyState != 4) return;
@@ -67,14 +84,14 @@ document.addEventListener("load", () => {
                 if (xml.status != 200) {
                     whoops("Failed to register!", d.message)
                     document.getElementById("username").classList.add("login-input-error")
-                    return
                 }
     
                 if (xml.status == 200){
-                    localStorage.setItem("expire", d.expires)
-                    localStorage.setItem("token", d.token)
-                    CURRENT_LOCATION = "done"
-                    window.location.href = "/"
+                    CURRENT_LOCATION = "pswd"
+                    localStorage.setItem("registery-username", document.getElementById("username").value)
+                    document.getElementById("subtitle").innerHTML = "Hello, <strong>" + document.getElementById("username").value + "</strong>!<br>You should probably set yourself a safe password."
+                    document.getElementById("username").value = "";
+                    document.getElementById("username").type = "password";
                 }
     
                 document.getElementById("logger").innerHTML = `Continue`
