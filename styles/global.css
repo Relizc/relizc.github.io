@@ -67,7 +67,7 @@ a:hover {
 
 .topnav .spacer {
     margin: auto;
-    flex: 5;
+    flex: 40vh;
 }
 
 .topnav .account {
@@ -84,6 +84,7 @@ a:hover {
     order: 0;
     float: left;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .topnav a.logo {
@@ -110,8 +111,8 @@ a:hover {
 }
 
 .whoops {
-    width: 30%;
-    height: 5%;
+    width: 32vw;
+    height: 64px;
     background-color: #ff1919;
     box-shadow: 3px 3px 20px black;
     color: white;
@@ -120,15 +121,11 @@ a:hover {
     position: fixed;
     display: flex;
     opacity: 1;
-    
     align-items: center;
     justify-content: space-around;
     gap: 20px;
-
     left: 50%;
-
     transform: translate(-50%, -50%);
-
 }
 
 .whoops-open {
