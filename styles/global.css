@@ -67,7 +67,6 @@ a:hover {
 
 .topnav .spacer {
     margin: auto;
-    flex: 40vh;
 }
 
 .topnav .account {
@@ -89,7 +88,12 @@ a:hover {
 
 .topnav a.logo {
     order: 1;
+    flex: 0 !important;
     margin: 0 auto;
+}
+
+.topnav a.account {
+    flex: 0.15;
 }
 
 .topnav a {

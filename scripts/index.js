@@ -11,7 +11,7 @@ document.addEventListener("load", (el) => {
     } 
     if (!ok) {
         e.innerHTML = `<i class="fa-solid fa-user-xmark"></i>
-            <p>Log In or Register</p>`
+            <p>Log In</p>`
     }
     console.log(this)
 }, true) 
