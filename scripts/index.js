@@ -50,3 +50,20 @@ function forceCloseWhoops() {
     if (document.getElementById("whoops") == null) return;
     document.getElementById("whoops").remove()
 }
+
+OPENED = false;
+
+setInterval(() => {
+    var devtools = function() {};
+    devtools.toString = function() {
+        if (!this.opened) {
+            console.log("Hello There!")
+            OPENED = true;
+        }
+
+        this.opened = true;
+    }
+
+    if (!OPENED) console.log('%c', devtools);
+    
+}, 500)
