@@ -2,7 +2,7 @@ document.addEventListener("load", (el) => {
     let e = document.getElementById("account")
     let ok = false;
     if (localStorage.getItem("token") != null) {
-        if (localStorage.getItem("expires") >= getUTC()) {
+        if (localStorage.getItem("expire") >= getUTC()) {
             let x = JSON.parse(localStorage.getItem("basic-profile-data")).given
             e.innerHTML = `<i class="fa-solid fa-user"></i>
             <p>Welcome, ${x}!</p>`
@@ -13,11 +13,11 @@ document.addEventListener("load", (el) => {
         e.innerHTML = `<i class="fa-solid fa-user-xmark"></i>
             <p>Log In</p>`
     }
-    console.log(this)
+    console.log(el)
 }, true) 
 
 function getUTC() {
-    return new Date().getTime() + (new Date().getTimezoneOffset() * 60 * 1000);
+    return (new Date().getTime() + (new Date().getTimezoneOffset() * 60 * 1000)) / 1000;
 }
 
 function whoops(msg = "We got a problem here!", message = "Sorry, this page encountered an error!") {
