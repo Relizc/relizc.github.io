@@ -103,9 +103,10 @@ document.addEventListener("load", () => {
 
             xml.open("POST","https://lostnfoundapi.ericpooman.repl.co/api/login");
 
+            xml.setRequestHeader("password", document.getElementById("username").value)
+
             xml.send(JSON.stringify({
                 "username": CURRENT_LOCATION,
-                "password": document.getElementById("username").value
             }))
         }
     }

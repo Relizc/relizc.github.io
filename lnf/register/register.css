@@ -36,6 +36,14 @@ body {
     transition: border-color 0.2s ease;
 }
 
+.login-input-vf {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .login-input-error {
     color: red;
     border-color: red;
