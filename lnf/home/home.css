@@ -1,0 +1,22 @@
+.logo-image {
+    object-fit: cover;
+    width: 18vh;
+    height: 18vh;
+
+    text-align: center;
+}
+
+.heading {
+    margin: 64px 0;
+    text-align: center;
+}
+
+.heading-title {
+    margin: 8px;
+    font-size: 2vh;
+}
+
+.heading-subtitle {
+    margin: 8px;
+    font-size: 1.5vh;
+}
