@@ -11,12 +11,16 @@ if (hr >= 0 && hr < 8) {
     document.getElementById("greet").innerHTML = `Good Morning, ${q}!`
 } else if (hr >= 10 && hr < 12) {
     document.getElementById("greet").innerHTML = `Have a nice lunch ${q}!`
-} else if (hr >= 12 && hr < 6) {
+} else if (hr >= 12 && hr < 18) {
     document.getElementById("greet").innerHTML = `Good Afternoon, ${q}!`
-} else if (hr >= 6 && hr < 10) {
+} else if (hr >= 18 && hr < 20) {
     document.getElementById("greet").innerHTML = `Good Evening, ${q}!`
 } else {
     document.getElementById("greet").innerHTML = `Good Night, ${q}!`
+}
+
+function mixedGridGenerator() {
+    
 }
 
 function ge(min, max) {

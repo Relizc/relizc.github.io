@@ -1,7 +1,7 @@
 .logo-image {
     object-fit: cover;
-    width: 18vh;
-    height: 18vh;
+    width: 256px;
+    height: 256px;
 
     text-align: center;
 }
@@ -13,10 +13,14 @@
 
 .heading-title {
     margin: 8px;
-    font-size: 2vh;
+    font-size: 32px;
 }
 
 .heading-subtitle {
     margin: 8px;
-    font-size: 1.5vh;
+    font-size: 16px;
+}
+
+.dynamic-mid-hr {
+    margin: 32px;
 }
