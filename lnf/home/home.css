@@ -1,0 +1,26 @@
+.logo-image {
+    object-fit: cover;
+    width: 256px;
+    height: 256px;
+
+    text-align: center;
+}
+
+.heading {
+    margin: 64px 0;
+    text-align: center;
+}
+
+.heading-title {
+    margin: 8px;
+    font-size: 32px;
+}
+
+.heading-subtitle {
+    margin: 8px;
+    font-size: 16px;
+}
+
+.dynamic-mid-hr {
+    margin: 32px;
+}
