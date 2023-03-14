@@ -41,7 +41,7 @@ function whoops(msg = "We got a problem here!", message = "Sorry, this page enco
 function clearWhoops() {
     if (document.getElementById("whoops") == null) return;
     document.getElementById("whoops").className = "whoops whoops-quickclose"
-        setTimeout(() => {
+        setTimeout(() => {  
             document.getElementById("whoops").remove()
     }, 250)
 }
