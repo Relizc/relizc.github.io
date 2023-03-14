@@ -93,7 +93,7 @@ document.addEventListener("load", () => {
                     localStorage.setItem("expire", d.expires)
                     localStorage.setItem("token", d.token)
                     CURRENT_LOCATION = "done"
-                    window.location.href = "/"
+                    window.location.href = "/lnf"
                 }
     
                 document.getElementById("logger").innerHTML = `Continue`
