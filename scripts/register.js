@@ -45,6 +45,11 @@ function finalverify() {
         if (xml.status != 200) {
             whoops("Failed to register!", "The verification code is not correct! Please check if you had typed the verification code correctly!")
             document.getElementById("email-code").classList.add("login-input-error")
+
+            document.getElementById("logger").disabled = null;
+            document.getElementById("email-code").disabled = null;
+            document.getElementById("email-code").classList.add("login-input-error")
+
         } else {
             document.getElementById("log").innerHTML = `<p class="title">Register a Lost 'n Found Account!</p>
             <br>
