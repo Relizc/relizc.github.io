@@ -23,9 +23,9 @@ window.onload = () =>{
             load.remove();
             for(i = 0;i < orders.length;i++){
                 e.insertAdjacentHTML("beforeend",`
-                <div id="order@${orders[i]["id"]} class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
-                <h2> ${orders[i]["title"]}</h3>
-                <h4>${orders[i]["poster"]}</h4>
+                <div id="order@${orders[i]["id"]}" class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
+                <h1> ${orders[i]["title"]}</h3>
+                <h3>${orders[i]["poster"]}</h4>
                 <p> ${orders[i]["description"]}</p>
                 </div>`)
             }
