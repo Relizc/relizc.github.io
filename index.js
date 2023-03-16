@@ -1,3 +1,3 @@
 onload = () => {
-    window.location.href = "/lnf/home"
+    window.location.href = "/lnf/home";
 }
