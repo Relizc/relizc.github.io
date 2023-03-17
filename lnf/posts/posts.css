@@ -1,0 +1,30 @@
+.main {
+    text-align: center;
+}
+
+.order {
+    background-color: #f2f2f2;
+    color: black;
+    height: 30em;
+    border: 2px solid #bbb;
+    margin: auto;
+    width: 50%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0px;
+}
+
+.tools {
+    float: left;
+}
+
+.filter {
+    height: 2em;
+    font-size: 1em;
+    width: 100%;
+    position: fixed;
+    top: 8.2%;
+    font-family: Courier;
+    padding: 0px 10px;
+}

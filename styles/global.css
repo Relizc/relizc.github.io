@@ -2,7 +2,6 @@ body {
     background-color: #eeeeee;
     margin: 0;
     font-family: varela;
-
     color: #333;
 }
 
@@ -48,7 +47,6 @@ a:hover {
     width: 100%;
     overflow: hidden;
     height: 64px;
-
     justify-content: space-between;
     align-items: center;
 }

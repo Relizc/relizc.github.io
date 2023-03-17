@@ -1,12 +1,16 @@
 window.onload = () =>{
+
+    e = document.getElementById("posts")
+
     load = document.createElement("p");
     load.innerHTML = "Loading posts, please wait...";
-    document.body.appendChild(load);
+
+    e.appendChild(load);
     xml = new XMLHttpRequest;
     xml.onreadystatechange = () =>{
         d = JSON.parse(xml.responseText);
         if(xml.status == 504){
-            whoops("Failed to Authenticate","Please log in again");
+            whoops("Failed to Authenticate","Your session expired! Please log in again!");
             window.location.href = "/lnf/login";
 
         }else if (xml.status == 200){
@@ -17,16 +21,12 @@ window.onload = () =>{
                 return;
             }
             load.remove();
-            
             for(i = 0;i < orders.length;i++){
-                
-
                 document.body.insertAdjacentHTML("beforeend",`
                 <div id="order@${orders[i]["id"]} class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
                 <h2> ${orders[i]["title"]}</h3>
                 <h4>${orders[i]["poster"]}</h4>
                 <p> ${orders[i]["description"]}</p>
-                <img src="https://us0.lnf.api.itsrelizc.net/api/getImage/"+${orders[i]["id"]}>
                 </div>`)
             }
         }
