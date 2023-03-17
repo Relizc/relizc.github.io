@@ -47,7 +47,6 @@ a:hover {
     width: 100%;
     overflow: hidden;
     height: 64px;
-    position: fixed;
     justify-content: space-between;
     align-items: center;
 }
