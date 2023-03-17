@@ -17,12 +17,16 @@ window.onload = () =>{
                 return;
             }
             load.remove();
+            
             for(i = 0;i < orders.length;i++){
+                
+
                 document.body.insertAdjacentHTML("beforeend",`
                 <div id="order@${orders[i]["id"]} class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
                 <h2> ${orders[i]["title"]}</h3>
                 <h4>${orders[i]["poster"]}</h4>
                 <p> ${orders[i]["description"]}</p>
+                <img src="https://us0.lnf.api.itsrelizc.net/api/getImage/"+${orders[i]["id"]}>
                 </div>`)
             }
         }
