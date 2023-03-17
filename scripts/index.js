@@ -67,3 +67,16 @@ setInterval(() => {
     if (!OPENED) console.log('%c', devtools);
     
 }, 500)
+
+
+function getUser(id){
+    xml = new XMLHttpRequest;
+    xml.onreadystatechange = () =>{
+        if(xml.status == 200){
+            d = xml.responseText;
+            return d;
+        }
+    }
+    xml.open("GET","https://us0.lnf.api.itsrelizc.net/api/getuser/"+id);
+    xml.send()
+}

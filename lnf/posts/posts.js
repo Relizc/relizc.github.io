@@ -9,7 +9,7 @@ window.onload = () =>{
     xml = new XMLHttpRequest;
     xml.onreadystatechange = () =>{
         d = JSON.parse(xml.responseText);
-        if(xml.status == 504){
+        if(xml.status == 500){
             whoops("Failed to Authenticate","Your session expired! Please log in again!");
             window.location.href = "/lnf/login";
 
@@ -26,6 +26,7 @@ window.onload = () =>{
                 <div id="order@${orders[i]["id"]} class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
                 <h2> ${orders[i]["title"]}</h3>
                 <h4>${orders[i]["poster"]}</h4>
+                <img src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i]["id"]}">
                 <p> ${orders[i]["description"]}</p>
                 </div>`)
             }
