@@ -37,7 +37,12 @@ function whoops(msg = "We got a problem here!", message = "Sorry, this page enco
         }, 1000)
     }
 }
-
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+  
 function clearWhoops() {
     if (document.getElementById("whoops") == null) return;
     document.getElementById("whoops").className = "whoops whoops-quickclose"
@@ -73,8 +78,7 @@ function getUser(id){
     xml = new XMLHttpRequest;
     xml.onreadystatechange = () =>{
         if(xml.status == 200){
-            d = xml.responseText;
-            return d;
+            return xml.responseText;
         }
     }
     xml.open("GET","https://us0.lnf.api.itsrelizc.net/api/getuser/"+id);

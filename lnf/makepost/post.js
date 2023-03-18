@@ -13,20 +13,23 @@ function postmcdd(){
     curFile = img.files;
     if(curFile.length == 0){
         whoops("ERROR","NO FILE!");
-
+        window.location.href = "lnf/makepost/"
     }else{
-        form = new FormData;
-        form.append("img",);
-        form.append("title",title);
-        form.append("description",description);
-        form.append("poster",getUser(localStorage.getItem("token")));
-
-        xml1 = new XMLHttpRequest;
-        xml1.open("POST","https://us0.lnf.api.itsrelizc.net/api/posting");
-        xml1.send(form);
+        xml = new XMLHttpRequest;
+        xml.open("POST","https://us0.lnf.api.itsrelizc.net/api/otherPosts");
+        xml.setRequestHeader("title",title);
+        xml.setRequestHeader("description",description);
+        xml.setRequestHeader("poster",getUser(localStorage.getItem("token")));
+        xml.setRequestHeader("id",document.getElementById("id").value);
+        xml.send()
     }
 
 }
 window.onload = () =>{
-    document.getElementById("poster").value = getUser(localStorage.getItem("token"));
+    d = getUser(localStorage.getItem("token"));
+    
+    document.getElementById("id").value = uuidv4();
+    document.getElementById("curURL").value = window.location.href;
+    document.getElementById("poster").value = d;
+
 }
