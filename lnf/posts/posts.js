@@ -21,6 +21,8 @@ window.onload = () =>{
                 return;
             }
             load.remove();
+            print(orders);
+            
             for(i = 0;i < orders.length;i++){
                 document.body.insertAdjacentHTML("beforeend",`
                 <div id="order@${orders[i]["id"]} class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
