@@ -24,27 +24,55 @@ window.onload = () =>{
             }
             load.remove();
             
-            for(i = 0; i < orders.length; i += 2){
-                console.log(orders[i])
+            for(i = 0; i < Math.max(Math.floor(orders.length / 2), Math.floor(orders.length / 2) * 2); i += 2){
+                console.log(orders[i], orders[i + 1])
 
-                let firstWdth = Math.floor(Math.random() * 25) + 15;
+                let firstWdth = Math.floor(Math.random() * 25) + 10;
                 let scndwdth = 40 - firstWdth;
 
+                let title1 = orders[i]["title"]
 
+                let difftime1 = getUTC() - orders[i]["strtime"]
+                var d1 = Math.floor(difftime1 / (3600*24));
+                var h1 = Math.floor(difftime1 % (3600*24) / 3600);
+                var m1 = Math.floor(difftime1 % 3600 / 60);
+                let q1 = ""
+                if (m1 != 0 && h1 == 0 && d1 == 0) q1 = "Just Now"
+                else if (h1 != 0 && d1 == 0) q1 = `${h1} Hour${h1 > 1 ? 's' : ''} Ago`
+                else if (d1 <= 7) q1 = `${d1} Day${d1 > 1 ? 's' : ''} Ago`
+                else q1 = new Date(orders[i]["strtime"]).toISOString().split("T")[0];
+
+                let difftime2 = getUTC() - orders[i + 1]["strtime"]
+                var d2 = Math.floor(difftime2 / (3600*24));
+                var h2 = Math.floor(difftime2 % (3600*24) / 3600);
+                var m2 = Math.floor(difftime2 % 3600 / 60);
+                let q2 = ""
+                if (m2 != 0 && h2 == 0 && d2 == 0) q2 = "Just Now"
+                else if (h2 != 0 && d2 == 0) q2 = `${h2} Hour${h2 > 1 ? 's' : ''} Ago`
+                else if (d2 <= 7) q2 = `${d2} Day${d2 > 1 ? 's' : ''} Ago`
+                else q2 = new Date(orders[i + 1]["strtime"]).toISOString().split("T")[0];
+
+                console.log(d1, h1, m1, d2, h2, m2)
 
                 document.getElementById("posts").insertAdjacentHTML("beforeend",`
                 <div class="postgroup" id="postgroup@${orders[i].id}#${orders[i + 1].id}">
                     <div style="width: ${firstWdth}vw;" id="order@${orders[i]["id"]}" class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
-                        <h2> ${orders[i]["title"]}</h3>
-                        <h4>${orders[i]["poster"]}</h4>
-                        <img style = "justify-content: center; width: 720px; height: 480px; background-resize: cover;" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i]["id"]}">
+                        <h2> ${title1}</h3>
+                        <div class="userhandler">
+                            <div class="avatar" style="background-image: url('https://us0.lnf.api.itsrelizc.net/api/avatar/${orders[i]["poster"]["user"]}');"></div>
+                            <p>${orders[i]["poster"]["display"]} <b>&centerdot;</b> ${q1}</p>
+                        </div>
+                        <img class="postimg" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i]["id"]}">
                         <p> ${orders[i]["description"]}</p>
                     </div>
-                    <div style="width: ${scndwdth}vw;" id="order@${orders[i]["id"]}" class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
-                        <h2> ${orders[i]["title"]}</h3>
-                        <h4>${orders[i]["poster"]}</h4>
-                        <img style = "justify-content: center; width: 720px; height: 480px; background-resize: cover;" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i]["id"]}">
-                        <p> ${orders[i]["description"]}</p>
+                    <div style="width: ${scndwdth}vw;" id="order@${orders[i + 1]["id"]}" class="order" onmouseover = "renderPreview(${orders[i + 1]["id"]}">
+                        <h2> ${orders[i + 1]["title"]}</h3>
+                        <div class="userhandler">
+                            <div class="avatar" style="background-image: url('https://us0.lnf.api.itsrelizc.net/api/avatar/${orders[i + 1]["poster"]["user"]}');"></div>
+                            <p>${orders[i + 1]["poster"]["display"]} <b>&centerdot;</b> ${q2}</p>
+                        </div>
+                        <img class="postimg" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i + 1]["id"]}">
+                        <p> ${orders[i + 1]["description"]}</p>
                     </div>
                 </div>
                 `)
