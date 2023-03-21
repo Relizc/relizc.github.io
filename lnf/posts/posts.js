@@ -11,9 +11,11 @@ window.onload = () =>{
         d = JSON.parse(xml.responseText);
         if(xml.status == 500){
             whoops("Failed to Authenticate","Your session expired! Please log in again!");
-            window.location.href = "/lnf/login";
+            // setTimeout(() => {window.location.href = "/lnf/login";}, 1000)
 
         }else if (xml.status == 200){
+            //return
+
             orders = d["posts"];
             posts = document.getElementById("posts");
             if(orders.length == 0){
@@ -22,14 +24,30 @@ window.onload = () =>{
             }
             load.remove();
             
-            for(i = 0;i < orders.length;i++){
-                document.body.insertAdjacentHTML("beforeend",`
-                <div style = "width: 100%;;" id="order@${orders[i]["id"]} class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
-                <h2> ${orders[i]["title"]}</h3>
-                <h4>${orders[i]["poster"]}</h4>
-                <img style = "justify-content: center; width: 720px; height: 480px; background-resize: cover;" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i]["id"]}">
-                <p> ${orders[i]["description"]}</p>
-                </div>`)
+            for(i = 0; i < orders.length; i += 2){
+                console.log(orders[i])
+
+                let firstWdth = Math.floor(Math.random() * 25) + 15;
+                let scndwdth = 40 - firstWdth;
+
+
+
+                document.getElementById("posts").insertAdjacentHTML("beforeend",`
+                <div class="postgroup" id="postgroup@${orders[i].id}#${orders[i + 1].id}">
+                    <div style="width: ${firstWdth}vw;" id="order@${orders[i]["id"]}" class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
+                        <h2> ${orders[i]["title"]}</h3>
+                        <h4>${orders[i]["poster"]}</h4>
+                        <img style = "justify-content: center; width: 720px; height: 480px; background-resize: cover;" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i]["id"]}">
+                        <p> ${orders[i]["description"]}</p>
+                    </div>
+                    <div style="width: ${scndwdth}vw;" id="order@${orders[i]["id"]}" class="order" onmouseover = "renderPreview(${orders[i]["id"]}">
+                        <h2> ${orders[i]["title"]}</h3>
+                        <h4>${orders[i]["poster"]}</h4>
+                        <img style = "justify-content: center; width: 720px; height: 480px; background-resize: cover;" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i]["id"]}">
+                        <p> ${orders[i]["description"]}</p>
+                    </div>
+                </div>
+                `)
             }
         }
     }
@@ -40,3 +58,5 @@ window.onload = () =>{
 function renderPreview(id){
     console.log("HOVERED")
 }
+
+document.getElementById("avatar").style = "background-image: url(\"" + "https://us0.lnf.api.itsrelizc.net/api/avatar/" + localStorage.getItem("me") + "\")"

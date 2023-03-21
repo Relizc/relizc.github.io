@@ -2,13 +2,33 @@
     text-align: center;
 }
 
+body {
+    background-image: url("/assets/c18371ec-921c-4d51-b365-869e88ae9a6d.jpg");
+    background-repeat: repeat;
+}
+
 .order {
     background-color: #f2f2f2;
     color: black;
-    height: 30em;
-    border: 2px solid #bbb;
-    margin: auto;
-    width: 50%;
+    border: 2px solid black;
+
+    padding: 16px;
+
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.expander-none {
+    padding-bottom: 100vh;
+}
+
+.content {
+    background-color: #eee;
+    margin: auto auto;
+    width: 50vw;
+    box-shadow: 0px 0px 100px rgb(0, 0, 0);
+
+    border-style: none solid;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -16,15 +36,80 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .tools {
-    float: left;
+    border-style: solid;
+    width: 45vw;
+    margin: auto auto;
+    padding: 8px;
+    border-radius: 8px;
+    border-width: 2px;
+
+    box-shadow: 0px 0px 10px #aaaaaa;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 4px;
 }
 
-.filter {
-    height: 2em;
-    font-size: 1em;
-    width: 100%;
-    position: fixed;
-    top: 8.2%;
-    font-family: Courier;
-    padding: 0px 10px;
+.postgroup {
+    margin: auto auto;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 45vw;
+
+    margin-bottom: 1.5vw;
+}
+
+.posting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar {
+    width: 1em;
+    height: 1em;
+    padding: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.post-input {
+    font-family: varela;
+    width: 20vw;
+    padding: 4px;
+    padding-left: 8px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 8px;
+}
+
+.post-btn {
+    font-family: varela;
+    padding: 4px 8px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 8px;
+
+    transition: background-color 0.2s ease-in-out;
+}
+
+.post-btn:hover {
+    background-color: #ddd;
+    cursor: pointer;
+
+    transition: background-color 0.2s ease-in-out;
+}
+
+.spacer {
+    padding: 32px;
 }

@@ -55,6 +55,8 @@ document.addEventListener("load", () => {
                 forceCloseWhoops()
     
                 d = JSON.parse(xml.responseText)
+
+                alert(JSON.stringify(d))
     
                 if (xml.status != 200) {
                     whoops("Failed to log in!", d.message)
@@ -64,6 +66,7 @@ document.addEventListener("load", () => {
                 else if (xml.status == 200){
                     localStorage.setItem("expire", d.expires)
                     localStorage.setItem("token", d.token)
+                    localStorage.setItem("me", d.you)
                     CURRENT_LOCATION = "done"
                     window.location.href = "/lnf"
                 }
