@@ -140,3 +140,31 @@ h1, h2, h3, h4, h5, h6, p {
 .spacer {
     padding: 32px;
 }
+
+.filter {
+    text-decoration: underline;
+    transition: color 0.2s ease-in-out;
+}
+
+.filter:hover {
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.fopts {
+    display: none;
+    position: absolute;
+
+    color: black;
+
+    background-color: #eee;
+    border-style: solid;
+    border-width: 2px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.filter:hover .fopts {
+    display: block;
+}
