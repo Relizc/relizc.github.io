@@ -16,6 +16,14 @@ body {
 
     border-radius: 8px;
     overflow: hidden;
+
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.order:hover {
+    box-shadow: 0 0 20px #888888;
+    transition: box-shadow 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .expander-none {
@@ -29,6 +37,11 @@ body {
     box-shadow: 0px 0px 100px rgb(0, 0, 0);
 
     border-style: none solid;
+}
+
+.cont > * {
+    font-size: 16px !important;
+    font-weight: 100 !important;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -57,7 +70,7 @@ h1, h2, h3, h4, h5, h6, p {
     border-style: solid;
     border-width: 1px;
     border-radius: 8px;
-    margin: 4px;
+    margin: 16px auto;
 }
 
 .userhandler {

@@ -84,3 +84,8 @@ function getUser(id){
     xml.open("GET","https://us0.lnf.api.itsrelizc.net/api/getuser/"+id);
     xml.send()
 }
+
+// if (!["relizc", "abra6325"].includes(localStorage.getItem("me"))) {
+//     document.body.innerHTML = "";
+//     document.body.insertAdjacentHTML("beforeend", "<h2>Access denied</h2><p>You do not have the previlege to access this page. If you are a verified developer, please log in.</p>")
+// }

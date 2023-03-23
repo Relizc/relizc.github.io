@@ -55,8 +55,6 @@ document.addEventListener("load", () => {
                 forceCloseWhoops()
     
                 d = JSON.parse(xml.responseText)
-
-                alert(JSON.stringify(d))
     
                 if (xml.status != 200) {
                     whoops("Failed to log in!", d.message)

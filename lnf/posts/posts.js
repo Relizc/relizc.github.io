@@ -9,11 +9,15 @@ window.onload = () =>{
     xml = new XMLHttpRequest;
     xml.onreadystatechange = () =>{
         d = JSON.parse(xml.responseText);
+
+        if (xml.readyState != 4) return;
+
+
         if(xml.status == 500){
-            whoops("Failed to Authenticate","Your session expired! Please log in again!");
+            whoops("Unable to load posts!", d.message);
             // setTimeout(() => {window.location.href = "/lnf/login";}, 1000)
 
-        }else if (xml.status == 200){
+        } else if (xml.status == 200){
             //return
 
             orders = d["posts"];
@@ -50,9 +54,9 @@ window.onload = () =>{
                 if (m2 != 0 && h2 == 0 && d2 == 0) q2 = "Just Now"
                 else if (h2 != 0 && d2 == 0) q2 = `${h2} Hour${h2 > 1 ? 's' : ''} Ago`
                 else if (d2 <= 7) q2 = `${d2} Day${d2 > 1 ? 's' : ''} Ago`
-                else q2 = new Date(orders[i + 1]["strtime"]).toISOString().split("T")[0];
+                else q2 = new Date(orders[i + 1]["strtime"] * 1000).toISOString().split("T")[0];   
 
-                console.log(d1, h1, m1, d2, h2, m2)
+                console.log(difftime1, d1, h1, m1, q1, difftime2, d2, h2, m2, q2)
 
                 document.getElementById("posts").insertAdjacentHTML("beforeend",`
                 <div class="postgroup" id="postgroup@${orders[i].id}#${orders[i + 1].id}">
@@ -63,7 +67,7 @@ window.onload = () =>{
                             <p>${orders[i]["poster"]["display"]} <b>&centerdot;</b> ${q1}</p>
                         </div>
                         <img class="postimg" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i]["id"]}">
-                        <p> ${orders[i]["description"]}</p>
+                        <div class="cont">${orders[i]["content"]}</div>
                     </div>
                     <div style="width: ${scndwdth}vw;" id="order@${orders[i + 1]["id"]}" class="order" onmouseover = "renderPreview(${orders[i + 1]["id"]}">
                         <h2> ${orders[i + 1]["title"]}</h3>
@@ -72,10 +76,15 @@ window.onload = () =>{
                             <p>${orders[i + 1]["poster"]["display"]} <b>&centerdot;</b> ${q2}</p>
                         </div>
                         <img class="postimg" src="https://us0.lnf.api.itsrelizc.net/api/getImage/${orders[i + 1]["id"]}">
-                        <p> ${orders[i + 1]["description"]}</p>
+                        <div class="cont">${orders[i + 1]["content"]}</div>
                     </div>
                 </div>
                 `)
+
+                
+
+                document.getElementById(`order@${orders[i].id}`).setAttribute("onclick", `a('${btoa(orders[i].id)}')`)
+                document.getElementById(`order@${orders[i + 1].id}`).setAttribute("onclick", `a('${btoa(orders[i + 1].id)}')`)
             }
         }
     }
@@ -86,5 +95,7 @@ window.onload = () =>{
 function renderPreview(id){
     console.log("HOVERED")
 }
+
+function a(q) {window.location.href = "/lnf/posts/viewpost?id=" + q}
 
 document.getElementById("avatar").style = "background-image: url(\"" + "https://us0.lnf.api.itsrelizc.net/api/avatar/" + localStorage.getItem("me") + "\")"
