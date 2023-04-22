@@ -1,0 +1,10 @@
+.avatar {
+    width: 3vw;
+    height: 3vw;
+    padding: 0;
+}
+
+.content {
+    padding-left: 16px;
+    padding-right: 16px;
+}
