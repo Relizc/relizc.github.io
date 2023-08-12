@@ -1,0 +1,184 @@
+@font-face {
+    font-family: varela;
+    src: url("/assets/VarelaRound-Regular.ttf");
+}
+
+body {
+    background-color: #eeeeee;
+    text-align: center;
+
+    font-family: varela;
+
+    margin-left: 0;
+    margin-right: 0;
+}
+
+body.finish > *:not(.ending) {
+    transition: filter ease-in-out 0.3s;
+    filter: blur(8px);
+}
+
+.select {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 16px;
+}
+
+.a {
+    margin: 64px 0;
+}
+
+.dim {
+    position: absolute;
+}
+
+.done {
+    color: red;
+    transition: color 0.3s;
+}
+
+.select img {
+
+    height: 128px;
+    width: 128px;
+
+    border-radius: 8px;
+    border-style: solid;
+    
+    border-width: 2px;
+
+    box-shadow: 4px 4px 12px #aaaaaa;
+
+    transition: filter 0.3s;
+
+    cursor: pointer;
+}
+
+@keyframes blink {
+    0% {
+        color: #0c0;
+    }
+    50% {
+        color: green;
+    }
+    100% {
+        color: #0c0;
+    }
+}
+
+.banslot {
+    width: 64px;
+    height: 64px;
+
+    background-color: white;
+
+    border-style: solid;
+    border-color: red;
+
+    margin: 2px 8px;
+}
+
+.selection {
+    position: fixed;
+
+    top: 50%;
+
+    transform: translate(0, -50%);
+
+    margin: 8px;
+    border-style: solid;
+    border-radius: 8px;
+    border-color: #aaa;
+    
+    background-color: #dedede;
+
+    overflow: hidden;
+}
+
+.selection p {
+    background-color: red;
+    color: white;
+    padding: 8px;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.selection .gg {
+    border-color: green;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.ending {
+
+    transition: opacity ease-in-out 0.3s;
+
+    display: block;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+    border-style: solid;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 4px 4px 12px #aaaaaa;
+
+    width: 50vw;
+    height: 30vh;
+    
+}
+
+.right {
+    float: right;
+    margin-left: 100%;
+    transform: translate(-110%, -50%);
+}
+
+.event p {
+    margin: 2px;
+}
+
+.event p.y {
+    color: green;
+    font-size: 18px;
+
+    animation: blink 2s ease-in-out infinite;
+}
+
+.select img.notok {
+    border-color: rgb(200, 200, 0);
+    transition: border-color 0.5s;
+
+    cursor: not-allowed !important;
+}
+
+.select img.banned {
+
+    filter: grayscale(100%) brightness(25%);
+
+
+}
+
+.select img.banned:hover {
+    cursor: auto;
+    filter: grayscale(100%) brightness(25%);
+}
+
+.select img.ok:hover {
+    filter: brightness(75%);
+
+    transition: filter 0.3s;
+}
+
+.foot {
+    position: fixed;
+    bottom: 20px;
+    left:50%;
+    transform: translate(-50%, 50%);
+}
