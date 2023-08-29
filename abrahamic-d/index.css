@@ -1,0 +1,15 @@
+@font-face {
+    font-family: varela;
+    src: url("/assets/VarelaRound-Regular.ttf");
+}
+
+body {
+    font-family: varela;
+    text-align: center;
+
+    background-image: url("d.png");
+    backdrop-filter: blur(8px);
+
+    margin: 0;
+    padding: 50%;
+}
