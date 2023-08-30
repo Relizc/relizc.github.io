@@ -52,6 +52,17 @@
 
                     <input type="number" id="udinp" min=0 max=1 value="0.5" step="0.01" oninput="dinp(0)"> <span>Probability of D</span> <br>
                     <input type="number" id="ldinp" min=0 max=1 value="0.5" step="0.01" oninput="dinp(1)"> <span>Probability of d</span> 
+
+                    <p class="sub" id="seed">Dude</p>
+                    <p>I guess you really need this. Only works when "Add 114514" box is checked.<br><br>Wrapping with stars turns 114514 into *114514*. The higher the spawn probability, the more frequent 114514 appears.</p>
+
+                    <input type="checkbox" id="enb114" name="114514" onclick="enb114(this)">
+                    <label for="114514">Add 114514 for me please</label><br>
+
+                    <input type="checkbox" id="enb114star" name="star" disabled>
+                    <label for="star">Wrap 114514 with stars (*).</label><br><br>
+
+                    <input type="number" id="114prob" min=0 max=1 value="0.015" step="0.001" disabled> <span>Spawn probability</span>
                 </div>
             </div>
         </div>

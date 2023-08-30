@@ -3,6 +3,8 @@ let LENGTH = 128
 let SPACE = 0.7
 let UPPERD = 0.5
 
+let DATA_114514 = [false, false, 0.1]
+
 function cyrb128(str) {
     let h1 = 1779033703, h2 = 3144134277,
         h3 = 1013904242, h4 = 2773480762;
@@ -83,6 +85,12 @@ function load() {
     LENGTH = document.getElementById("leninp").valueAsNumber
     SPACE = document.getElementById("spaceinp").valueAsNumber
     UPPERD = document.getElementById("ldinp").valueAsNumber
+
+    DATA_114514 = [
+        document.getElementById("enb114").checked,
+        document.getElementById("enb114star").checked,
+        document.getElementById("114prob").valueAsNumber
+    ]
 }
 
 function copy(e) {
@@ -115,16 +123,20 @@ function erase(e) {
     cp.innerHTML = "";
 }
 
+function enb114(e) {
+    if (e.checked) {
+        document.getElementById("enb114star").disabled = null
+        document.getElementById("114prob").disabled = null
+    } else {
+        document.getElementById("enb114star").disabled = !e.checked
+        document.getElementById("114prob").disabled = !e.checked
+    }
+}
+
 function generate() {
     load()
 
     let cont = document.getElementById("content")
-
-    if (Math.random() < UPPERD) {
-        cont.innerHTML += "d"
-    } else {
-        cont.innerHTML += "D"
-    } // First character must be D
 
     for (let i = 0; i < LENGTH; i ++) {
         
@@ -137,6 +149,13 @@ function generate() {
             }
         } else {
             cont.innerHTML += " "
+        }
+
+        if (DATA_114514[0]) {
+            if (Math.random() < DATA_114514[2]) {
+                if (DATA_114514[1]) cont.innerHTML += "*114514*"
+                else cont.innerHTML += "114514"
+            }
         }
     }
 }
