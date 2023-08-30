@@ -22,8 +22,13 @@ h3 {
 h3.sub {
     text-align: center;
     margin: 16px;
+}
 
-    itali
+.options {
+    display: flex;
+
+    justify-content: center;
+    gap: 64px;
 }
 
 div.option {
@@ -32,8 +37,12 @@ div.option {
     padding-left: 64px;
 }
 
-div.option p {
+div.option p.sub {
     font-weight: bold;
+}
+
+div.col {
+    width: 256px;
 }
 
 textarea.text {

@@ -1,4 +1,7 @@
 let SEED = "d"
+let LENGTH = 128
+let SPACE = 0.7
+let UPPERD = 0.5
 
 function cyrb128(str) {
     let h1 = 1779033703, h2 = 3144134277,
@@ -45,6 +48,18 @@ function sfc32(a, b, c, d) {
     }
 }
 
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+
 function mulberry32(a) {
     return function() {
       var t = a += 0x6D2B79F5;
@@ -55,12 +70,73 @@ function mulberry32(a) {
 }
 
 window.onload = () => {
-    console.log("A")
-    document.getElementById("seed").innerHTML = document.getElementById("seed").innerHTML.replace("{seed}", SEED)
-    document.getElementById("seedinp").value = SEED
+    document.getElementById("seedinp").value = makeid(64)
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+function load() {
+    document.getElementById("seedinp").value = makeid(64)
+    SEED = document.getElementById("seedinp").value
+    LENGTH = document.getElementById("leninp").valueAsNumber
+    SPACE = document.getElementById("spaceinp").valueAsNumber
+    UPPERD = document.getElementById("ldinp").valueAsNumber
+}
+
+function copy(e) {
+    e.value = "Copied!"
+    setTimeout(() => {
+        e.value = "Copy"
+    }, 1000)
+
+    let cp = document.getElementById("content")
+
+    cp.select();
+    document.execCommand('copy');
+}
+
+function dinp(which) {
+    if (which == 0) {
+        document.getElementById("ldinp").value = 1 - document.getElementById("udinp").value
+    } else {
+        document.getElementById("udinp").value = 1 - document.getElementById("ldinp").value
+    }
+}
+
+function erase(e) {
+    e.value = "Cleared!"
+    setTimeout(() => {
+        e.value = "Clear"
+    }, 1000)
+
+    let cp = document.getElementById("content")
+    cp.innerHTML = "";
 }
 
 function generate() {
+    load()
+
     let cont = document.getElementById("content")
-    cont.innerHTML += random()
+
+    if (Math.random() < UPPERD) {
+        cont.innerHTML += "d"
+    } else {
+        cont.innerHTML += "D"
+    } // First character must be D
+
+    for (let i = 0; i < LENGTH; i ++) {
+        
+    
+        if (Math.random() > SPACE) {
+            if (Math.random() < UPPERD) {
+                cont.innerHTML += "d"
+            } else {
+                cont.innerHTML += "D"
+            }
+        } else {
+            cont.innerHTML += " "
+        }
+    }
 }
