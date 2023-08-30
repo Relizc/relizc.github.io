@@ -5,16 +5,26 @@
     </head>
     <body class="bg">
         <h1>Abrahamic "D" Generator</h1>
+        <h3 class="sub"><i>Copy and send "D" messages that makes you look stupid</i></h2>
 
-        <textarea class="text" rows="32"></textarea>
+        <textarea id="content" class="text" rows="32"></textarea>
 
         <br>
         <br>
         <br>
 
-        <div>
+        <input type="button" value="Randomize Seed and Generate" onclick="generate()">
+
+        <div class="option">
             <h3>General Options</h3>
             <hr>
+
+            <p id="seed">Seed (Current: {seed})</p>
+
+            <input type="text" id="seedinp">
+            <input type="button" value="Set">
         </div>
+
+        <script type="text/javascript" src="index.js"></script>
     </body>
 </html>
