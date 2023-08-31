@@ -64,6 +64,22 @@
 
                     <input type="number" id="114prob" min=0 max=1 value="0.015" step="0.001" disabled> <span>Spawn probability</span>
                 </div>
+
+                <div class="col">
+                    <p class="sub" id="seed">Dynamic Spacing</p>
+                    <p>Sometimes you just need more spaces and sometimes you don't. Change this to trigger the probability of continous space generating.</p>
+
+                    <input type="checkbox" id="enbds" name="enbds" onclick="enbds(this)">
+                    <label for="enbds">Use dynamic spacing.</label><br><br>
+                    <input type="number" id="dsprob" min=0 max=1 value="0.001" step="0.01" disabled> <span>Probability</span> <br>
+
+                    <p class="sub" id="seed">Misplaced Es</p>
+                    <p>When you spam the D key, you might press the E key. Change these to occasionly add Es after a D is printed.</p>
+
+                    <input type="checkbox" id="enbes" name="enbes" onclick="enbes(this)">
+                    <label for="enbes">Add some Es for me.</label><br><br>
+                    <input type="number" id="esprob" min=0 max=1 value="0.08" step="0.01" disabled> <span>Probability</span> <br>
+                </div>
             </div>
         </div>
 

@@ -2,8 +2,10 @@ let SEED = "d"
 let LENGTH = 128
 let SPACE = 0.7
 let UPPERD = 0.5
+let SPACING = [false, 0.001]
 
 let DATA_114514 = [false, false, 0.1]
+let ADD_E = [false, 0.08]
 
 function cyrb128(str) {
     let h1 = 1779033703, h2 = 3144134277,
@@ -91,6 +93,10 @@ function load() {
         document.getElementById("enb114star").checked,
         document.getElementById("114prob").valueAsNumber
     ]
+
+    SPACING[1] = document.getElementById("dsprob").valueAsNumber
+
+    ADD_E[1] = document.getElementById("esprob").valueAsNumber
 }
 
 function copy(e) {
@@ -133,6 +139,24 @@ function enb114(e) {
     }
 }
 
+function enbds(e) {
+    SPACING[0] = e.checked
+    if (SPACING[0]) {
+        document.getElementById("dsprob").disabled = null;
+    } else {
+        document.getElementById("dsprob").disabled = true;
+    }
+}
+
+function enbes(e) {
+    ADD_E[0] = e.checked
+    if (ADD_E[0]) {
+        document.getElementById("esprob").disabled = null;
+    } else {
+        document.getElementById("esprob").disabled = true;
+    }
+}
+
 function generate() {
     load()
 
@@ -147,6 +171,10 @@ function generate() {
             } else {
                 cont.innerHTML += "D"
             }
+
+            if (ADD_E[0] && Math.random() < ADD_E[1]) {
+                cont.innerHTML += "e"
+            }
         } else {
             cont.innerHTML += " "
         }
@@ -155,6 +183,14 @@ function generate() {
             if (Math.random() < DATA_114514[2]) {
                 if (DATA_114514[1]) cont.innerHTML += "*114514*"
                 else cont.innerHTML += "114514"
+            }
+        }
+
+        if (SPACING[0]) {
+            if (Math.random() < SPACING[1]) {
+                for (let x = 0; x < (getRandomInt(16) + 32); x ++) {
+                    cont.innerHTML += " "
+                }
             }
         }
     }
