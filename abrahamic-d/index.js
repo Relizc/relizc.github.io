@@ -4,8 +4,9 @@ let SPACE = 0.7
 let UPPERD = 0.5
 let SPACING = [false, 0.001]
 
-let DATA_114514 = [false, false, 0.1]
-let ADD_E = [false, 0.08]
+let DATA_114514 = [true, true, 0.1]
+let ADD_E = [true, 0.08]
+let DATA_SLASH = [true, 0.03]
 
 function cyrb128(str) {
     let h1 = 1779033703, h2 = 3144134277,
@@ -97,6 +98,8 @@ function load() {
     SPACING[1] = document.getElementById("dsprob").valueAsNumber
 
     ADD_E[1] = document.getElementById("esprob").valueAsNumber
+
+    DATA_SLASH[1] = document.getElementById("slprob").valueAsNumber
 }
 
 function copy(e) {
@@ -157,6 +160,15 @@ function enbes(e) {
     }
 }
 
+function enbsl(e) {
+    DATA_SLASH[0] = e.checked
+    if (DATA_SLASH[0]) {
+        document.getElementById("slprob").disabled = null;
+    } else {
+        document.getElementById("slprob").disabled = true;
+    }
+}
+
 function generate() {
     load()
 
@@ -183,6 +195,12 @@ function generate() {
             if (Math.random() < DATA_114514[2]) {
                 if (DATA_114514[1]) cont.innerHTML += "*114514*"
                 else cont.innerHTML += "114514"
+            }
+        }
+
+        if (DATA_SLASH[0]) {
+            if (Math.random() < DATA_SLASH[1]) {
+                cont.innerHTML += "/"
             }
         }
 
