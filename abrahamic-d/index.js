@@ -2,7 +2,7 @@ let SEED = "d"
 let LENGTH = 128
 let SPACE = 0.7
 let UPPERD = 0.5
-let SPACING = [false, 0.001]
+let SPACING = [true, 0.01]
 
 let DATA_114514 = [true, true, 0.1]
 let ADD_E = [true, 0.08]

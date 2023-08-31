@@ -45,6 +45,10 @@ div.col {
     width: 256px;
 }
 
+textarea {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 textarea.text {
     resize: none;
     width: 50%;
