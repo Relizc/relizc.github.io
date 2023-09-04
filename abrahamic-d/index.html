@@ -36,9 +36,9 @@
                     <br><br>
 
                     <p class="sub" id="seed">Length</p>
-                    <p>The length of the d-message. Value must be 16 ~ 1024</p>
+                    <p>The length of the d-message. Value must be 16 ~ 65536</p>
 
-                    <input type="number" id="leninp" min=16 max=1024 value="256">
+                    <input type="number" id="leninp" min=16 max=65536 value="2048">
 
                     <p class="sub" id="seed">Space Weight</p>
                     <p>Probability of adding a space. Ranges from 0 to 1. The higher the decimal, the more likely a space is added.</p>
@@ -88,6 +88,18 @@
                     <input type="checkbox" id="enbsl" name="enbsl" onclick="enbsl(this)" checked>
                     <label for="enbsl">Add Slashes (/)</label><br><br>
                     <input type="number" id="slprob" min=0 max=1 value="0.03" step="0.01"> <span>Probability</span> <br>
+
+                    <p class="sub">Teams Auto Spam</p>
+                    <p>This part is for nerds! Or do you want to <a href="https://github.com/Relizc/relizc.github.io/blob/ab7d580b3b9dd793031c3c80cb26d34be760cd2f/abrahamic-d/connect-teams.md">become a nerd</a>?</p>
+
+                    <span>Request Link</span>
+                    <input type="text" id="xhrlink"><br><br>
+                    <span>Request Authencation</span>
+                    <input type="password" id="xhrauth"><br><br>
+                    <span>Amount (Less than 13)</span><br>
+                    <input type="number" id="xhrtimes" value=5><br><br>
+
+                    <input type="button" value="Start Requesting" onclick="send(this)">
                 </div>
             </div>
         </div>

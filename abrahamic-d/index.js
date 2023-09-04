@@ -169,47 +169,79 @@ function enbsl(e) {
     }
 }
 
-function generate() {
+function send() {
+
+}
+
+function getstuff() {
     load()
 
-    let cont = document.getElementById("content")
+    let cont = ""
 
     for (let i = 0; i < LENGTH; i ++) {
         
     
         if (Math.random() > SPACE) {
             if (Math.random() < UPPERD) {
-                cont.innerHTML += "d"
+                cont += "d"
             } else {
-                cont.innerHTML += "D"
+                cont += "D"
             }
 
             if (ADD_E[0] && Math.random() < ADD_E[1]) {
-                cont.innerHTML += "e"
+                cont += "e"
             }
         } else {
-            cont.innerHTML += " "
+            cont += " "
         }
 
         if (DATA_114514[0]) {
             if (Math.random() < DATA_114514[2]) {
-                if (DATA_114514[1]) cont.innerHTML += "*114514*"
-                else cont.innerHTML += "114514"
+                if (DATA_114514[1]) cont += "*114514*"
+                else cont += "114514"
             }
         }
 
         if (DATA_SLASH[0]) {
             if (Math.random() < DATA_SLASH[1]) {
-                cont.innerHTML += "/"
+                cont += "/"
             }
         }
 
         if (SPACING[0]) {
             if (Math.random() < SPACING[1]) {
                 for (let x = 0; x < (getRandomInt(16) + 32); x ++) {
-                    cont.innerHTML += " "
+                    cont += " "
                 }
             }
         }
     }
+
+    return cont
+}
+
+function generate() {
+    document.getElementById("content").innerHTML = getstuff()
+}
+
+function _send() {
+    let x = new XMLHttpRequest()
+    x.open("POST", document.getElementById("xhrlink").value)
+    
+    x.setRequestHeader("Access-Control-Allow-Origin", '*')
+    x.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+
+    
+    
+    x.send()
+
+    console.log(x.responseText)
+}
+
+function send(e) {
+
+    TIMES = document.getElementById("xhrtimes").valueAsNumber
+
+    e.value = `Sending (1/${TIMES}): Connecting... (784 Bytes)`
+    _send()
 }
