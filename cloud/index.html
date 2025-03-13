@@ -52,7 +52,13 @@
 
                     button.disabled=false;
                 })
-                .catch(error => alert("Error uploading file."));
+                .catch(error => {
+
+                    result.innerHTML = "上传失败! 请重试. <br>" + error
+                    result.style = "color:red;"
+                    button.disabled=false;
+
+                });
 
                 }
 
