@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+
+
+
+            function submit() {
+
+                const fileInput = document.getElementById("file");
+                const button = document.getElementById("button")
+                const result = document.getElementById("result")
+
+                
+
+                
+
+                if (fileInput.files.length === 0) {
+                    result.innerHTML = "请选择一个文件!"
+                    result.style = "color:red;"
+                    return;
+                }
+
+                button.disabled=true;
+
+                const file = fileInput.files[0];
+                const formData = new FormData();
+                formData.append("file", file);
+
+                fetch("http://106.55.55.100/upload", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        result.innerHTML = "上传失败! 请重试. <br>" + data.error
+                        result.style = "color:red;"
+                    } else {
+                        let code = data.link
+
+                        result.style = "color:black;"
+
+                        let link = `<a href="http://106.55.55.100/d/${code}" target="_blank">http://106.55.55.100/d/${code}</a>`
+
+                        result.innerHTML = "永久链接: " + link + ""
+                        
+                    }
+
+                    button.disabled=false;
+                })
+                .catch(error => alert("Error uploading file."));
+
+                }
+
+        </script>
+
+        <h1>Relizc 音乐上传鸡</h1>
+        <p>选择一个音乐 (支持mp3, ogg, wav)</p>
+        <hr>
+        <p>可以拽托到以下方框进行上传</p>
+        <div><input type="file" style="padding: 16px; border-radius: 2px; border-style:solid;" id="file"></div><br>
+
+        <button onclick="submit()" id="button">上传!</button>
+        <p id="result">永久链接: 请先上传文件!</p>
+        <hr>
+        <h3>如何在游戏内使用?</h3>
+        <p><strong>步骤1</strong>: 右键并复制链接</p>
+        <p><strong>步骤2</strong>: 粘贴至Echted工作台, 如图下:</p>
+        <image src="/cloud/8a174d301c1f71f9e4f7f9572a6cfaa.png"></image>
+        <p><strong>步骤3</strong>: 取出合成成功的唱片并放入唱片机。大功告成!</p>
+    </body>
+</html>
