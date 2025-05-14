@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relizc Item Class Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: #f0f0f0;
+      color: #333;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.3rem;
+    }
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    input, select, button, textarea {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+    button {
+      background-color: #268bd2;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1d6fa5;
+    }
+    .output {
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      margin-top: 2rem;
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Relizc Item Class Generator</h1>
+
+  <div class="input-group">
+    <label for="itemId">Item ID</label>
+    <input type="text" id="itemId">
+  </div>
+
+  <div class="input-group">
+    <label for="material">Material</label>
+    <input type="text" id="material" placeholder="e.g., Material.STONE_SWORD">
+  </div>
+
+  <div class="input-group">
+    <label for="stackable">Stackable</label>
+    <select id="stackable">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+  </div>
+
+  <div class="input-group">
+    <label for="tradeable">Tradeable</label>
+    <select id="tradeable">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+  </div>
+
+  <div class="input-group">
+    <label for="quality">Quality</label>
+    <input type="text" id="quality" placeholder="e.g., Quality.CONTRABAND">
+  </div>
+
+  <h2>Display</h2>
+  <div class="input-group">
+    <label for="quality">Display Name</label>
+    <input type="text" id="displayname" placeholder="e.g., Wooden Sword">
+    <p><strong>NOTE:</strong> You have add this to the locale files!</p>
+  </div>
+
+  <h2>Metadata</h2>
+  <div id="meta-container"></div>
+  <button type="button" onclick="addMeta()">Add Metadata</button>
+
+  <button type="button" onclick="generateClass()" style="margin-top: 1rem;">Generate Class</button>
+
+  <h2>Java Class</h2>
+  <div id="output" class="output"></div>
+  <h2>JSON locales</h2>
+  <div id="output_json" class="output"></div>
+
+  <script>
+    let metaCount = 0;
+
+    function addMeta() {
+      const container = document.getElementById('meta-container');
+      const div = document.createElement('div');
+      div.className = 'input-group';
+      div.innerHTML = `
+        <label>Metadata Key</label>
+        <input type="text" id="meta-key-${metaCount}">
+        <label>Metadata Type</label>
+        <input type="text" id="meta-type-${metaCount}" placeholder="e.g., NBTTagType.TAG_Int">
+        <label>Initial Value</label>
+        <input type="text" id="meta-init-${metaCount}">
+      `;
+      container.appendChild(div);
+      metaCount++;
+    }
+
+    function generateClass() {
+      const id = document.getElementById('itemId').value;
+      const material = document.getElementById('material').value;
+      const stackable = document.getElementById('stackable').value;
+      const tradeable = document.getElementById('tradeable').value;
+      const quality = document.getElementById('quality').value;
+      const name = document.getElementById('displayname').value;
+
+      let metaAnnotations = '';
+      for (let i = 0; i < metaCount; i++) {
+        const key = document.getElementById(`meta-key-${i}`).value;
+        const type = document.getElementById(`meta-type-${i}`).value;
+        const init = document.getElementById(`meta-init-${i}`).value;
+        if (key && type && init) {
+          metaAnnotations += `@RelizcItemMeta(key="${key}", type=${type}, init=${init})\n`;
+        }
+      }
+
+      const output = `@RelizcItem(id="${id.toUpperCase()}", material=${material}, stackable=${stackable}, quality=${quality}, tradeable=${tradeable})\n${metaAnnotations}public class ${id[0].toUpperCase() + id.slice(1).toLowerCase().replace(/_(\w)/g, (_,c)=>c.toUpperCase())} extends RelizcItemStack {\n\n  public ${id[0].toUpperCase() + id.slice(1).toLowerCase().replace(/_(\w)/g, (_,c)=>c.toUpperCase())}(Player owner, ItemStack it) {\n    super(owner, it);\n  }\n\n  @Override\n  public List<String> renderInternalLore() {\n    // TODO: Add dynamic lore rendering logic\n    return new ArrayList<>();\n  }\n}`;
+
+      document.getElementById('output').innerText = output;
+
+      document.getElementById('output_json').innerText = "\"item." + id.toUpperCase() + `.name\": \"${name}\",`
+    }
+  </script>
+</body>
+</html>
