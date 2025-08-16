@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <script src="https://kit.fontawesome.com/3861ab7bf6.js" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Camera Feed</title>
+  <style>
+
+    @font-face {
+      font-family: "Montserrat";
+      src: url("Montserrat-Regular.ttf");
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* prevent scrollbars */
+      font-family: "Montserrat";
+      display: flex;
+      flex-direction: column;
+
+      background: linear-gradient(40deg, #010313, #020629, #110127);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    header, footer {
+      flex-shrink: 0;
+      width: 100%;
+      text-align: center;
+      padding: 32px;
+      background: #000000;
+      color: white;
+    }
+
+    main {
+      flex: 1; /* fill remaining space */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; /* stop child overflow */
+    }
+
+    canvas, video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border: 2px solid #000;
+      border-radius: 10px;
+
+      box-shadow: 15px 0 200vw rgba(255, 255, 255, 0.3),
+                  0 0 40px rgba(0, 150, 255, 0.2);
+    }
+
+
+    .dialogue {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      color: black;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      z-index: 999;
+      width: 300px;
+      max-width: 90vw;
+    }
+
+    .image-label-box {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .image-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .image-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 150px;
+    }
+
+    .image-caption {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .info-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(44, 44, 44, 0.95); /* red tone for error */
+      color: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      font-size: 1.1em;
+      text-align: center;
+      z-index: 1000; /* sits above canvas */
+      max-width: 80%;
+    }
+
+    .back-link {
+      position: absolute;
+      top: -50px;
+      left: 10px;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9em;
+      z-index: 1000;
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+
+    .back-link:hover {
+      color: cornsilk;
+      text-shadow: 0 0 8px cornsilk;
+    }
+
+    a {
+      color:cornsilk;
+    }
+
+    #canvas-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    #scanner-layout {
+      display: flex;
+      gap: 50px;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      margin-top: 10%;
+      box-sizing: border-box;
+    }
+
+    #stats-container {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+      min-width: 220px;
+      max-height: 90%;
+      overflow-y: auto;
+    }
+
+    #stats-container h1 {
+      margin: 0;
+      font-size: 3em;
+    }
+
+    #stats-container h1.good {
+      color: #35cc41;
+    }
+
+    #stats-container h1.neutral {
+      color: #a9ada9;
+    }
+
+    #stats-container h1.bad {
+      color: #b62f2f;
+    }
+
+    #stats-container p {
+      margin: 10px 0;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: rgb(8, 0, 54);
+      color: white;
+      font-family: "Montserrat";
+      border: solid;
+      border-width: 1px;
+      padding: 8px;
+      border-color: rgb(128, 128, 128);
+      border-radius: 8px;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <i class="fa-solid fa-book-atlas fa-2xl"></i>
+  </header>
+
+  <main>
+    <div id="dialogueBox" class="dialogue">
+      <p>Hello! This is the first generation of library scanner. Make sure you align all the scannble labels in the allocated area. Any text outside the area will not be scanned.</p>
+      <div class="image-label-box">
+        <div class="image-row">
+          <div class="image-item">
+            <div class="image-caption">Example of a Good Sample</div>
+            <img src="38.jpg" alt="Before image">
+            <span><br><strong>Why?</strong> Straight angle, labels visible and clear.</span>
+          </div>
+          <div class="image-item">
+            <div class="image-caption">Example of a Bad Sample</div>
+            <img src="18.jpg" alt="After image">
+            <span><br><strong>Why?</strong> Too tilted, far, labels out of bounds.</span>
+          </div>
+        </div>
+      </div>
+      <label>
+        <input type="checkbox" id="dontShowAgain"> Don't show this again
+      </label><br>
+      <button onclick="closeDialogue()">OK</button>
+    </div>
+
+    <div id="scanner-layout">
+      <div id="canvas-container" style="position:relative; display:inline-block;">
+          <a href="/" class="back-link"><i class="fa-solid fa-arrow-left"></i>  Return to Gallery Selection</a>
+          <canvas id="can" width="800" height="800"></canvas>
+        </div>
+        <img id="testsample" src="38test.jpg" style="display:none;" alt="Image">
+        <video id="videoElement" autoplay playsinline style="display:none;"></video>
+
+      <aside id="stats-container">
+        <h1 class="neutral">0</h1><span>Scanned labels</span><br><br>
+
+        <h1 class="good">0</h1><span>Correctly placed books</span><br><br>
+        
+        <h1 class="bad">0</h1><span>Misplaced books</span><br><br>
+
+        <button>Clear counter</button>
+      </aside>
+    </div>
+  </div>
+
+   
+  </main>
+
+  <footer>
+    © 2025 Library Scanner Project
+  </footer>
+
+  <script>
+
+    function showInfoBox(message) {
+
+      const oldBox = document.querySelector("#canvas-container .info-box");
+      if (oldBox) oldBox.remove();
+
+      const box = document.createElement("div");
+      box.className = "info-box";
+      box.innerHTML = message;
+
+      document.getElementById("canvas-container").appendChild(box);
+
+
+    }
+
+    window.onload = () => {
+      const hideDialogue = localStorage.getItem("hideDialogue");
+      if (hideDialogue === "true") {
+        document.getElementById("dialogueBox").style.display = "none";
+      }
+    };
+
+    function closeDialogue() {
+      const dontShow = document.getElementById("dontShowAgain").checked;
+      if (dontShow) {
+        localStorage.setItem("hideDialogue", "true");
+      }
+      document.getElementById("dialogueBox").style.display = "none";
+    }
+
+    const videoElement = document.getElementById('videoElement');
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          videoElement.srcObject = stream;
+        })
+        .catch((error) => {
+          console.error("Error accessing camera: ", error);
+        });
+    } else {
+      alert("getUserMedia is not supported by your browser.");
+    }
+
+    const canvas = document.getElementById('can');
+    const context = canvas.getContext("2d");
+    const xw = 400, xh = 400;
+    const scaleRatio = (canvas.height / xw);
+    var bounds = [];
+
+    function drawBounds(x1, y1, x2, y2, w) {
+      bounds.push([x1, y1, x2, y2, w]);
+    }
+
+    function draw() {
+      const videoWidth = videoElement.videoWidth;
+      const videoHeight = videoElement.videoHeight;
+      const sx = (videoWidth - xw) / 2;
+      const sy = (videoHeight - xh) / 2;
+
+      context.fillStyle = "black";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      context.drawImage(videoElement, sx, sy, xw, xh, 0, 0, xw * scaleRatio, xh * scaleRatio);
+
+      context.fillStyle = "rgba(0, 0, 0, 0.7)";
+      context.fillRect(0, 0, canvas.width, canvas.height - 200);
+
+      for (let b of bounds) {
+        context.strokeStyle = 'rgb(0, 255, 0)';
+        context.lineWidth = 2;
+        context.strokeRect(b[0], b[1], b[2] - b[0], b[3] - b[1]);
+        context.fillStyle = "rgb(0, 255, 0)";
+        context.fillText(b[4], b[0], b[1]-5);
+      }
+      requestAnimationFrame(draw);
+    }
+
+    function showFail(msg) {
+      showInfoBox(`Failed to start library service. Please check your internet status and our <a href="/status">Status</a><br><br>` + msg)
+    }
+
+    var isWaiting = false;
+    let intervalId = setInterval(() => {
+      let  websocket;
+
+        websocket = new WebSocket("ws://43.133.209.143:775")
+
+      
+      let timeoutId;
+      websocket.onopen = () => {
+        if (isWaiting) return;
+        isWaiting = true;
+        const frameData = canvas.toDataURL('image/jpeg', 0.8); 
+        websocket.send(JSON.stringify({ frame: frameData }));
+        timeoutId = setTimeout(() => {
+          websocket.close();
+        }, 1000);
+      }
+
+      websocket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+
+        clearInterval(intervalId)
+        showFail("Server connection failed: " + error.target.url)
+      };
+
+      websocket.addEventListener("message", (event) => {
+        isWaiting = false;
+        clearTimeout(timeoutId);
+        let data;
+        try {
+          data = JSON.parse(event.data);
+        } catch (e) {
+          console.error("Invalid JSON:", e);
+        }
+        let result = []
+        for (let bound of data) {
+          let mx = 9999, my=9999, maxx=-9999, maxy=-9999;
+          for (let i = 0; i < 4; i ++) {
+            let str = bound[i];
+            mx = Math.min(mx, str[0]);
+            my = Math.min(my, str[1]);
+            maxx = Math.max(maxx, str[0]);
+            maxy = Math.max(maxy, str[1]);
+          }
+          result.push({"loc": [mx, my, maxx, maxy], "text": bound[4]})
+        }
+        bounds = [];
+        for (let res of result) {
+          drawBounds(res.loc[0], res.loc[1], res.loc[2], res.loc[3], res.text)
+        }
+      });
+    }, 1000);
+
+    
+
+    videoElement.addEventListener('loadedmetadata', () => {
+      draw();
+    });
+  </script>
+</body>
+</html>
