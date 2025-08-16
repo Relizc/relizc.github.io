@@ -178,7 +178,7 @@
     #stats-container {
       background: rgba(255, 255, 255, 0.05);
       color: white;
-      padding: 20px;
+      padding: 32px;
       border-radius: 12px;
       box-shadow: 0 0 12px rgba(0,0,0,0.4);
       min-width: 220px;
@@ -189,6 +189,16 @@
     #stats-container h1 {
       margin: 0;
       font-size: 3em;
+    }
+
+    #stats-container h2 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    #stats-container h3 {
+      margin: 0;
+      font-size: 1em;
     }
 
     #stats-container h1.good {
@@ -217,6 +227,13 @@
       padding: 8px;
       border-color: rgb(128, 128, 128);
       border-radius: 8px;
+
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: rgb(24, 10, 102);
+      cursor: pointer;
     }
 
 
@@ -253,18 +270,21 @@
 
     <div id="scanner-layout">
       <div id="canvas-container" style="position:relative; display:inline-block;">
-          <a href="/" class="back-link"><i class="fa-solid fa-arrow-left"></i>  Return to Gallery Selection</a>
+          <a href="/library/gallery" class="back-link"><i class="fa-solid fa-arrow-left"></i>  Return to Gallery Selection</a>
           <canvas id="can" width="800" height="800"></canvas>
         </div>
         <img id="testsample" src="38test.jpg" style="display:none;" alt="Image">
         <video id="videoElement" autoplay playsinline style="display:none;"></video>
 
       <aside id="stats-container">
-        <h1 class="neutral">0</h1><span>Scanned labels</span><br><br>
+        <br>
+        <h2 id="shelf">Loading...</h2><span>Selected Bookshelf (<a href="/library/gallery">Change</a>) </span> <br><br>
 
-        <h1 class="good">0</h1><span>Correctly placed books</span><br><br>
+        <h1 class="neutral" id="scanned">0</h1><span>Scanned labels</span><br><br>
+
+        <h1 class="good" id="scanned-good">0</h1><span>Correctly placed books</span><br><br>
         
-        <h1 class="bad">0</h1><span>Misplaced books</span><br><br>
+        <h1 class="bad" id="scanned-bad">0</h1><span>Misplaced books</span><br><br>
 
         <button>Clear counter</button>
       </aside>
@@ -275,10 +295,31 @@
   </main>
 
   <footer>
-    © 2025 Library Scanner Project
+    © 2025 Library Scan. All Rights Reserved.<br>
+    <a href="/library/terms">Terms</a> <a href="/library/api">Docs/API</a>
   </footer>
 
   <script>
+
+    const libinfo = {
+      "name": "Young Adults (Center)",
+      "shelfid": 1,
+      "scan": {
+        "good": 0,
+        "bad": 0,
+        "scanned": 45
+      }
+    }
+
+    function updateStats(id, content) {
+      document.getElementById(id).innerHTML = content
+    }
+
+    updateStats("shelf", libinfo.name)
+    updateStats("scanned", libinfo.scan.scanned)
+    updateStats("scanned-good", libinfo.scan.good)
+    updateStats("scanned-bad", libinfo.scan.bad)
+
 
     function showInfoBox(message) {
 
@@ -317,6 +358,7 @@
         })
         .catch((error) => {
           console.error("Error accessing camera: ", error);
+          showInfoBox("Unable to access camera: " , error)
         });
     } else {
       alert("getUserMedia is not supported by your browser.");
